@@ -27,3 +27,8 @@ CONFIG += embed_translations
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+# Copie le dossier "samples" vers le répertoire de construction
+copydata.commands = $(COPY_DIR) $$shell_path($$PWD/samples) $$shell_path($$OUT_PWD/samples)
+QMAKE_EXTRA_TARGETS += copydata
+PRE_TARGETDEPS += copydata
