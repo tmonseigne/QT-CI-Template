@@ -1,0 +1,64 @@
+name: Github Actions with QT
+
+on: push
+
+jobs:
+  build-and-package-linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update  
+          sudo apt-get install qt6-base-dev
+
+      - name: Configure QT project
+        run: qmake
+
+      - name: Build QT project
+        run: make
+
+      - name: Package QT application
+        run: make install
+
+      - name: Create zip archive
+        run: zip -r application-linux.zip .
+
+      - name: Upload zip artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: application-linux-zip
+          path: application-linux.zip
+
+  build-and-package-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          choco install qt6-base-dev
+          qmake -version
+
+      - name: Configure QT project
+        run: qmake
+
+      - name: Build QT project
+        run: nmake
+
+      - name: Package QT application
+        run: nmake install
+
+      - name: Create zip archive
+        run: 7z a application-windows.zip .
+
+      - name: Upload zip artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: application-windows-zip
+          path: application-windows.zip
