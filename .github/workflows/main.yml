@@ -10,10 +10,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: |
-          sudo apt-get update  
-          sudo apt-get install qt6-base-dev
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
 
       - name: Configure QT project
         run: qmake
@@ -40,10 +38,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: |
-          choco install qt6-base-dev
-          qmake -version
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
 
       - name: Configure QT project
         run: qmake
