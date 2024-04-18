@@ -16,14 +16,19 @@ jobs:
           version: '6.5'
           cache: 'true'
 
+      - name: Install linuxdeployqt
+        run: |
+            wget -c "https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage" -O linuxdeployqt
+            chmod +x linuxdeployqt
+
       - name: Configure QT project
         run: qmake
 
       - name: Build QT project
         run: make
 
-      - name: Package QT application
-        run: make install
+      - name: Deploy QT application
+        run: ./linuxdeployqt $(find . -name "QT-CI-Template") --appimage-extract
 
       - name: Create zip archive
         run: zip -r application-linux.zip .
@@ -58,9 +63,12 @@ jobs:
       - name: Build QT project
         run: nmake
 
-      - name: Package QT application
-        run: nmake install
+#      - name: Tree
+#        run: tree.com /f
 
+      - name: Deploy QT application
+        run: windeployqt --release release/QT-CI-Template.exe
+    
       - name: Create zip archive
         run: 7z a application-windows.zip .
 
