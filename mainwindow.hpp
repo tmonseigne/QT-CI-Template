@@ -1,6 +1,4 @@
-#ifndef MAINWINDOW_HPP
-#define MAINWINDOW_HPP
-
+#pragma once
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -20,4 +18,3 @@ public:
 private:
     Ui::MainWindow *ui;
 };
-#endif // MAINWINDOW_HPP
