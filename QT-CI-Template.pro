@@ -8,18 +8,21 @@ CONFIG += c++17
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+# Déclaration des fichiers sources
 SOURCES += \
-    main.cpp \
-    mainwindow.cpp
+    src/main.cpp \
+    src/ui/mainwindow.cpp
 
 HEADERS += \
-    mainwindow.hpp
+    src/ui/mainwindow.hpp
 
 FORMS += \
-    mainwindow.ui
+    src/ui/mainwindow.ui
 
+# Fichiers de traduction
 TRANSLATIONS += \
-    QT-CI-Template_fr_FR.ts
+    languages/QT-CI-Template_fr_FR.ts
+
 CONFIG += lrelease
 CONFIG += embed_translations
 
