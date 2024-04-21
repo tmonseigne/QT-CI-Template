@@ -21,6 +21,11 @@ jobs:
             wget -c "https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage" -O linuxdeployqt
             chmod +x linuxdeployqt
 
+      - name : Install X11
+        run: |
+          sudo apt-get install libxcb-xinerama0
+          sudo apt-get install libxkbcommon-x11-0 libxcb-*
+
       - name: Configure QT project
         run: qmake
 
@@ -28,17 +33,26 @@ jobs:
         run: make
 
       - name: Deploy QT application
-        run: ./linuxdeployqt $(find . -name "QT-CI-Template") --appimage-extract
+        run: |
+          ./linuxdeployqt app/app --appimage-extract
+          ./linuxdeployqt tests/base_test/base_test --appimage-extract
+          ./linuxdeployqt tests/ui_test/ui_test --appimage-extract
+          
+      - name: Run Tests
+        run: |
+          tests/base_test/base_test
+#          tests/ui_test/ui_test
 
       - name: Create zip archive
         run: zip -r application-linux.zip .
-
+  
       - name: Upload zip artifact
         uses: actions/upload-artifact@v4
         with:
           name: application-linux-zip
           path: application-linux.zip
 
+  
   build-and-package-windows:
     runs-on: windows-latest
 
