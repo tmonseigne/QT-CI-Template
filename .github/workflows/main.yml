@@ -63,18 +63,13 @@ jobs:
       - name: Build QT project
         run: nmake
 
-      - name: Tree
-        run: tree.com /f
-
       - name: Move files to deploy folder
         run: | # Copy with ignore duplicated files
           mkdir deploy
           Get-ChildItem -Path "app\release" -File | Copy-Item -Destination "deploy" -Force -ErrorAction SilentlyContinue
           Get-ChildItem -Path "tests\base_test\release" -File | Copy-Item -Destination "deploy" -Force -ErrorAction SilentlyContinue
           Get-ChildItem -Path "tests\ui_test\release" -File | Copy-Item -Destination "deploy" -Force -ErrorAction SilentlyContinue
- 
-      - name: Run tests
-        run: tree.com /f
+          xcopy /E /I "samples" "deploy\samples\"
       
       - name: Deploy QT application
         run: |
@@ -83,10 +78,13 @@ jobs:
           windeployqt --release deploy/ui_test.exe
 
       - name: Run tests
-        run: tree.com /f
+        run: |
+          cd deploy
+          ./base_test.exe
+          ./ui_test.exe
       
       - name: Create zip archive
-        run: 7z a application-windows.zip .
+        run: 7z a application-windows.zip ./deploy/*
 
       - name: Upload zip artifact
         uses: actions/upload-artifact@v4
