@@ -1,5 +1,5 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    ui \
-    base
+    base_test \
+    ui_test

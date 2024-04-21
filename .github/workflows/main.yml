@@ -63,11 +63,19 @@ jobs:
       - name: Build QT project
         run: nmake
 
-#      - name: Tree
-#        run: tree.com /f
+      - name: Tree
+        run: tree.com /f
 
       - name: Deploy QT application
         run: windeployqt --release release/QT-CI-Template.exe
+
+      - name: Build and run tests
+        run: |
+          cd tests
+          qmake
+          nmake
+          cd ..
+          tree.com /f
     
       - name: Create zip archive
         run: 7z a application-windows.zip .
