@@ -40,7 +40,7 @@
     </property>
    </widget>
   </widget>
-  <widget class="QMenuBar" name="menubar">
+  <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -52,16 +52,16 @@
    <property name="defaultUp">
     <bool>true</bool>
    </property>
-   <widget class="QMenu" name="menuFichier">
+   <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>Fichier</string>
     </property>
-    <addaction name="actionQuitter"/>
+    <addaction name="actionQuit"/>
    </widget>
-   <addaction name="menuFichier"/>
+   <addaction name="menuFile"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionQuitter">
+  <action name="actionQuit">
    <property name="text">
     <string>Quitter</string>
    </property>

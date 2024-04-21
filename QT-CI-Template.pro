@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui testlib
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -30,6 +30,9 @@ CONFIG += embed_translations
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+# Inclure les sous-projets
+SUBDIRS += tests
 
 # Copie le dossier "samples" vers le répertoire de construction
 #copydata.commands = $(COPY_DIR) $$shell_path($$PWD/samples) $$shell_path($$OUT_PWD/samples)
